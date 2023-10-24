@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Login {
     private static final List<User> users = new ArrayList<>();
 
-    public static void loginUser(){
+    public static String loginUser(){
         try {
             //Read the existing JSON file
             JSONParser parser = new JSONParser();
@@ -39,17 +39,21 @@ public class Login {
                 String verifyCaptcha = scanner.nextLine();
                 if(captcha.equals(verifyCaptcha)){
                     System.out.println("Login successful!");
+                    return username;
                 }
                 else{
                     System.out.println("Invalid captcha!");
+                    System.exit(0);
                 }
             } else {
                 System.out.println("Invalid username or password.");
+                System.exit(0);
             }
 
         } catch (Exception e) {
             System.out.println(e);
         }
+        return " ";
 
     }
 }

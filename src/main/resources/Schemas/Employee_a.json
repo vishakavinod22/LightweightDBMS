@@ -1,0 +1,28 @@
+{
+  "emp": {
+    "data": [
+      {
+        "name": "12",
+        "id": "john",
+        "dept_id": "1"
+      }
+    ],
+    "columns": [
+      {
+        "name": "id",
+        "constraint": "primary key",
+        "type": "int"
+      },
+      {
+        "name": "dept_id",
+        "constraint": "foreign key",
+        "type": "int"
+      },
+      {
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "table_name": "emp"
+  }
+}

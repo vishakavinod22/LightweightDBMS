@@ -1,0 +1,27 @@
+{
+  "student": {
+    "data": [
+      {
+        "l_name": "ann",
+        "f_name": "mary",
+        "id": "1"
+      }
+    ],
+    "columns": [
+      {
+        "name": "id",
+        "constraint": "primary key",
+        "type": "int"
+      },
+      {
+        "name": "f_name",
+        "type": "string"
+      },
+      {
+        "name": "l_name",
+        "type": "string"
+      }
+    ],
+    "table_name": "student"
+  }
+}
