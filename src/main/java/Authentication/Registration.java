@@ -12,21 +12,21 @@ public class Registration {
 
     private static final List<User> users = new ArrayList<>();
 
-    public static void registerUser(){
+    public static boolean registerUser(){
         try {
-            // Step 1: Read the existing JSON file
+            //Read the existing JSON file
             JSONParser parser = new JSONParser();
             Object obj = parser.parse(new FileReader("src/main/resources/Users.json"));
             JSONObject jsonObject = (JSONObject) obj;
 
-            // Step 2: Parse JSON data to check if username is taken
+            //Parse JSON data to check if username is taken
             Scanner scanner = new Scanner(System.in);
             System.out.print("Enter username: ");
             String username = scanner.nextLine();
 
             if (jsonObject.containsKey(username)) {
                 System.out.println("Username is already taken.");
-                return;
+                return false;
             }
 
             System.out.print("Enter password: ");
@@ -35,19 +35,20 @@ public class Registration {
             //Hashing the password
             String hashedPassword = Security.HashMd5(password);
 
-            // Step 3: Add new user to JSON data
+            //Add new user to JSON data
             jsonObject.put(username, hashedPassword);
 
-            // Step 4: Write updated data back to JSON file
+            //Write updated data back to JSON file
             try (FileWriter updatedFile = new FileWriter("src/main/resources/Users.json")) {
                 updatedFile.write(jsonObject.toJSONString());
                 System.out.println("User registered successfully!");
+                return true;
             }
 
         } catch (Exception e) {
             System.out.println(e);
         }
-
+        return false;
     }
 
 }
