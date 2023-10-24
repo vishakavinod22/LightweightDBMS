@@ -2,6 +2,7 @@ import Authentication.Login;
 import Authentication.Registration;
 import Repository.Create;
 import Repository.Query;
+import Repository.Read;
 import Repository.SchemaManager;
 
 import java.util.Objects;
@@ -46,6 +47,9 @@ public class DbmsApplication {
                     break;
                 case "INSERT":
                     Create.insertData(userQuery, schemaName);
+                    break;
+                case "SELECT":
+                    Read.readTable(userQuery, schemaName);
                     break;
             }
 

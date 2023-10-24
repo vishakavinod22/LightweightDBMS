@@ -105,34 +105,19 @@ public class Create {
                 return;
             }
 
-            // Check if user input column names are correct
-            JSONArray columnsObject = (JSONArray) ((JSONObject) schemaData.get(tableName)).get("columns");
-            JSONArray dbColumnNames = new JSONArray();
-            for (Object column : columnsObject) {
-                String a = ((JSONObject) column).get("name").toString();
-                dbColumnNames.add(a);
-            }
-
-            //Sorting user input column names before comparing
-            String[] sortedColumnNames = columnNames;
-            Arrays.sort(sortedColumnNames);
-            //Sorting schema stored column names before comparing
-            Collections.sort(dbColumnNames);
-
-            for (int i=0; i< sortedColumnNames.length; i++){
-                boolean isTrue = sortedColumnNames[i].equals(dbColumnNames.get(i).toString());
-                if(!isTrue){
-                    System.out.println("Column name "+ columnNames[i] +" do not match. Expecting "+dbColumnNames.get(i)+".");
-                    return;
-                }
-            }
-
             JSONArray dataArray = (JSONArray) ((JSONObject) schemaData.get(tableName)).get("data");
 
             // Create a JSON object for the new row
             JSONObject newRow = new JSONObject();
             for (int i = 0; i < columnNames.length; i++) {
                 newRow.put(columnNames[i].trim(), values[i].trim());
+                // check if column names are correct
+                for (Object row : dataArray) {
+                    if(((JSONObject) row).get(columnNames[i]) == null){
+                        System.out.println("Error: Wrong column name.");
+                        return;
+                    }
+                }
             }
 
             // Check if there are any rows with the same id
@@ -143,6 +128,8 @@ public class Create {
                     return;
                 }
             }
+
+            System.out.println(newRow);
 
             // Add the new row to the data array
             dataArray.add(newRow);
@@ -163,7 +150,8 @@ public class Create {
 //    public static void main(String[] args) {
 //        Scanner scanner = new Scanner(System.in);
 ////        String stmt = "create table student(id int primary key, first_name string, last_name string)";
-//        String stmt = "insert into student (id, first_name, last_name) values (1, \"vishaka\", \"vinod\");"; //scanner.nextLine();
+////        String stmt = "insert into student (id, first_name, last_name) values (1, \"vishaka\", \"vinod\");"; //scanner.nextLine();
+//        String stmt = scanner.nextLine();
 //        insertData(stmt, "Organization");
 //    }
 }
