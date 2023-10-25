@@ -1,14 +1,11 @@
 import Authentication.Login;
 import Authentication.Registration;
-import Repository.Create;
-import Repository.Query;
-import Repository.Read;
-import Repository.SchemaManager;
+import Repository.*;
 
-import java.util.Objects;
 import java.util.Scanner;
 
 public class DbmsApplication {
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Menu");
@@ -46,17 +43,16 @@ public class DbmsApplication {
                     Create.createTable(userQuery, schemaName);
                     break;
                 case "INSERT":
-                    Create.insertData(userQuery, schemaName);
+                    Insert.insertData(userQuery, schemaName);
                     break;
                 case "SELECT":
-                    Read.readTable(userQuery, schemaName);
+                    Select.selectData(userQuery, schemaName);
                     break;
             }
 
             System.out.println("Continue? [true/false]");
             isContinue = scanner.nextBoolean();
         } while (isContinue);
-
     }
 
     public static String getSchema(String username){

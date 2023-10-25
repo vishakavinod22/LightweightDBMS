@@ -1,0 +1,2 @@
+#tablename;id:int;name:string
+#tablename2;id:int;name:string

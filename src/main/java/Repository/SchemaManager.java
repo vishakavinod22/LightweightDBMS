@@ -10,8 +10,10 @@ public class SchemaManager {
         try{
             Scanner scanner = new Scanner(System.in);
             System.out.print("Enter schema name: ");
-            String schemaFileName = "src/main/resources/Schemas/" + schemaName + "_" + username + ".json";
+            String schemaFolderName = "src/main/resources/Schemas/" + schemaName + "_" + username;
+            String schemaFileName = schemaFolderName + "/metaData.txt";
 
+            File schemaFolder = new File(schemaFolderName);
             File schemaFile = new File(schemaFileName);
 
             //If schema exists then get data or else create new schema
@@ -19,12 +21,8 @@ public class SchemaManager {
                 System.out.println("Schema exists");
             } else {
                 System.out.println("Created new schema.");
+                schemaFolder.mkdirs();
                 schemaFile.createNewFile();
-                //Write updated data back to JSON file
-                try (FileWriter updatedFile = new FileWriter(schemaFileName)) {
-                    updatedFile.write("{}");
-//                    return true
-                }
             }
 
         }
@@ -32,5 +30,9 @@ public class SchemaManager {
             System.out.println(e);
         }
     }
+
+//    public static void main(String[] args) {
+//        accessSchema("schemaName", "username");
+//    }
 
 }
