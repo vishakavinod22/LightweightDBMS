@@ -1,1 +1,0 @@
-{"student":{"data":[{"last_name":"doe","id":"22","first_name":"john"},{"last_name":"vinod","id":"1","first_name":"vishaka"}],"columns":[{"name":"id","constraint":"primary key","type":"int"},{"name":"f_name","type":"string"},{"name":"l_name","type":"string"}],"table_name":"student"}}
