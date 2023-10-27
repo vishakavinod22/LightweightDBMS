@@ -1,0 +1,4 @@
+#;id|2;name|bike;color|yellow;make|xxx;years|12
+#;id|3;name|truck;color|grey;make|aaa;years|13
+#;id|4;name|cycle;color|pink
+#;id|12

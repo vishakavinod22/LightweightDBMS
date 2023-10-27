@@ -2,6 +2,7 @@ import Authentication.Login;
 import Authentication.Registration;
 import Repository.*;
 
+import java.util.Date;
 import java.util.Scanner;
 
 public class DbmsApplication {
@@ -47,6 +48,9 @@ public class DbmsApplication {
                     break;
                 case "SELECT":
                     Select.selectData(userQuery, schemaName);
+                    break;
+                case "DELETE":
+                    Delete.deleteData(userQuery, schemaName);
                     break;
             }
 

@@ -5,10 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.security.Key;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Select {
     public static void selectData(String selectStmt, String schemaName) {
@@ -134,8 +131,6 @@ public class Select {
     private static void selectAllWithWhere(String tableName, String schemaName, String whereColumnName, String whereValue){
         try{
             String fileName = "src/main/resources/Schemas/" + schemaName + "/"+tableName+".txt";
-            List<String> allData = new ArrayList<>();
-            List<String> colValueData = new ArrayList<>();
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             String line;
             while ((line = reader.readLine()) != null) {
@@ -162,7 +157,10 @@ public class Select {
 
         } catch (FileNotFoundException e){
             System.out.println();
-        } catch (Exception e){
+        } catch (InputMismatchException e){
+            System.out.println(e + " : Invalid input, try again");
+        }
+        catch (Exception e){
             System.out.println(e);
         }
     }
@@ -200,7 +198,10 @@ public class Select {
 
         } catch (FileNotFoundException e){
             System.out.println();
-        } catch (Exception e){
+        } catch (InputMismatchException e){
+            System.out.println(e + " : Invalid input, try again");
+        }
+        catch (Exception e){
             System.out.println(e);
         }
     }

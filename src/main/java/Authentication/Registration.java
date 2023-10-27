@@ -23,6 +23,8 @@ public class Registration {
             Scanner scanner = new Scanner(System.in);
             System.out.print("Enter username: ");
             String username = scanner.nextLine();
+            //Converting username to lowercase to avoid case-insensitive checks
+            username = username.toLowerCase();
 
             if (jsonObject.containsKey(username)) {
                 System.out.println("Username is already taken.");

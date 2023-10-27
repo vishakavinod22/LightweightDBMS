@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Insert {
@@ -80,7 +81,10 @@ public class Insert {
             writer.close();
             System.out.println("Record Inserted");
 
-        } catch (Exception e){
+        } catch (InputMismatchException e){
+            System.out.println(e + " : Invalid input, try again");
+        }
+        catch (Exception e){
             System.out.println(e);
         }
 
