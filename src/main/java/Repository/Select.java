@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.security.Key;
 import java.util.*;
 
 public class Select {
@@ -203,6 +202,44 @@ public class Select {
         }
         catch (Exception e){
             System.out.println(e);
+        }
+    }
+
+    public static List<String> getSelectOutputAsString(String tableName, String schemaName, String whereColumnName, String whereValue){
+        try{
+            String fileName = "src/main/resources/Schemas/" + schemaName + "/"+tableName+".txt";
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            List<String> selectOutput = new ArrayList<>();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("#")) {
+                    String[] columns = line.split(";");
+                    for (String column : columns) {
+                        String[] keyValue = column.split("\\|");
+                        String key = keyValue[0];
+                        String value = "";
+                        if(!key.equals("#")){
+                            value = keyValue[1];
+                        }
+
+                        if (key.equals(whereColumnName) && value.equals(whereValue)) {
+                            String result = line.replaceAll("#","").replaceAll("\\|","=").replaceAll(";"," | ");
+                            selectOutput.add(result.substring(3));
+                            break;
+                        }
+                    }
+                }
+            }
+            reader.close();
+            return selectOutput;
+
+        } catch (FileNotFoundException e){
+            return Collections.singletonList("Error : File not found");
+        } catch (InputMismatchException e){
+            return Collections.singletonList("Error : " + e + " : Invalid input, try again");
+        }
+        catch (Exception e){
+            return Collections.singletonList("Error : " + e);
         }
     }
 
