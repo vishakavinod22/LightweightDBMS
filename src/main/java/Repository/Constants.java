@@ -1,5 +1,9 @@
 package Repository;
 
+/**
+ * <h1>Constants</h1>
+ * This class stores the constants.
+ */
 public class Constants {
     public static final String ROW_START = "#";
     public static final String COL_NAME_START = ";";

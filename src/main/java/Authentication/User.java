@@ -4,7 +4,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-
+/**
+ * <h1>User Entity</h1>
+ * This class contains the User entity.
+ */
 public class User {
 
     private String username;

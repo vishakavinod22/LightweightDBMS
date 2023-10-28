@@ -3,11 +3,20 @@ import Authentication.Registration;
 import Repository.*;
 import Transaction.PerformTransactions;
 
-import java.util.Date;
 import java.util.Scanner;
 
+/**
+ * <h1>DBMS Application</h1>
+ * This class contains the main class.
+ */
 public class DbmsApplication {
 
+    /**
+     * <h2>main</h2>
+     * The entry point of the program.
+     *
+     * @param args The command line arguments.
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Menu");
@@ -41,6 +50,13 @@ public class DbmsApplication {
         } while (isContinue == 'y');
     }
 
+    /**
+     * <h2>getSchema</h2>
+     * This method is a private method called inside main() to access the user Schema
+     *
+     * @param  username  the user's name
+     * @return           schema name
+     */
     private static String getSchema(String username) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter schema name: ");
@@ -49,6 +65,13 @@ public class DbmsApplication {
         return schemaName + "_" + username;
     }
 
+    /**
+     * <h2>performOperations</h2>
+     * This method is a private method called inside main(). It allows the user to enter their sql queries and
+     * calls the specific classes to perform the operations.
+     *
+     * @param  schemaName  the schema name
+     */
     private static void performOperations(String schemaName) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Queries");

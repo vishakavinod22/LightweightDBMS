@@ -9,9 +9,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * <h1>Login</h1>
+ * This class provides a method to perform user login
+ */
 public class Login {
     private static final List<User> users = new ArrayList<>();
 
+    /**
+     * <h2>loginUser</h2>
+     * This method gets the user inputs for username and password.
+     *
+     * It compares the user inputs with the Users.json file to check if the username and password are correct.
+     * If the username and password are correct, the method calls the Captcha.generateCaptcha() to genrate a
+     * five digit captcha sequence.
+     * The user then inputs the captcha for authentication. Once the captchas are verified, the user has logged
+     * in and can perform DB operations.
+     *
+     * This method returns a string that contains the username.
+     *
+     * @return      the username
+     */
     public static String loginUser(){
         try {
             //Read the existing JSON file

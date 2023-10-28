@@ -5,87 +5,28 @@ import Authentication.Registration;
 import Repository.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * <h1>Perform Transaction</h1>
+ * This class provides methods for performing transactions
+ */
 public class PerformTransactions {
 
-//    public static void main(String[] args) {
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Menu");
-//        System.out.println("1. Login");
-//        System.out.println("2. Register");
-//        System.out.print("Enter your choice: ");
-//        int menu = scanner.nextInt();
-//
-//        String username = "";
-//        String schemaName = "";
-//
-//        switch (menu) {
-//            case 2:
-//                boolean isSuccess = Registration.registerUser();
-//                if (!isSuccess) {
-//                    System.exit(0);
-//                }
-//                System.out.println("You can login now.");
-//            case 1:
-//                username = Login.loginUser();
-//                schemaName = getSchema(username);
-//                break;
-//        }
-//
-//        char isContinue = 'n';
-//        do {
-//            performOperations(schemaName);
-//
-//            System.out.println("Continue? [y/n]");
-//            isContinue = scanner.next().charAt(0);
-//        } while (isContinue == 'y');
-//    }
-//
-//    private static String getSchema(String username) {
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.print("Enter schema name: ");
-//        String schemaName = scanner.nextLine();
-//        SchemaManager.accessSchema(schemaName, username);
-//        return schemaName + "_" + username;
-//    }
-//
-//    private static void performOperations(String schemaName) {
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Queries");
-//        System.out.println("--------");
-//        //Get user query
-//        String userQuery = Query.getUserQuery();
-//        String action = Query.getQueryAction(userQuery);
-//        switch (action) {
-//            case "CREATE":
-//                Create.createTable(userQuery, schemaName);
-//                break;
-//            case "INSERT":
-//                Insert.insertData(userQuery, schemaName);
-//                break;
-//            case "SELECT":
-//                Select.selectData(userQuery, schemaName);
-//                break;
-//            case "DELETE":
-//                Delete.deleteData(userQuery, schemaName);
-//                break;
-//            case "UPDATE":
-//                Update.updateData(userQuery, schemaName);
-//                break;
-//            case "START":
-//                startTransaction(schemaName);
-//                break;
-//            default:
-//                System.out.println("Invalid SQL query. Try again");
-//                break;
-//        }
-//
-//
-//    }
-
+    /**
+     * <h2>startTransaction</h2>
+     * This method gets called if the user enters a sql to perform transactions.
+     * Once the user enters "START TRANSACTION" this method gets called. This user can then enter multiple queries to
+     * perform INSERT, DELETE, or UPDATE.
+     *
+     * The method allows the user to enter N lines of queries until the user enters "COMMIT" or a "ROLLBACK".
+     *
+     * The method then executes all the queries one by one and stores it in the buffer. It then calls the CommitManager
+     * methods to perform a commit or rollback.
+     *
+     * @param schemaName  the schema name
+     */
     public static void startTransaction(String schemaName) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter your transaction block one below the other. \nOnce completed write commit / rollback.");

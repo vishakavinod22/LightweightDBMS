@@ -5,7 +5,29 @@ import Repository.Select;
 import java.io.*;
 import java.util.*;
 
+/**
+ * <h1>Update Transaction</h1>
+ * This class provides methods for record update in a transaction
+ */
 public class updateTransaction {
+
+    /**
+     * <h2>updateData</h2>
+     * This method gets called if the user enters a sql to UPDATE a record in the table.
+     * The method accepts the following formats only:
+     *      update table_name set columnName1 = value1 where primaryKey = value2;
+     * Sample input statement:
+     *      update students set first_name = "John" where id = 10;
+     *
+     *  Assumptions:
+     *      The WHERE condition only accepts the primary key
+     *      Only one column value will be updates at a time
+     *
+     *  Note: this function does not perform automatic commits.
+     *
+     * @param updateStmt  the sql select statement
+     * @param schemaName  the schema name
+     */
     public static void updateData(String updateStmt, String schemaName){
         try{
             updateStmt = updateStmt.toLowerCase();

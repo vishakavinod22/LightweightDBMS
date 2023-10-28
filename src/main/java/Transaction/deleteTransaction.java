@@ -6,7 +6,28 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.*;
 
+/**
+ * <h1>Delete Transaction</h1>
+ * This class provides methods for record deletion in a transaction
+ */
 public class deleteTransaction {
+
+    /**
+     * <h2>deleteData</h2>
+     * This method gets called if the user enters a sql to DELETE a record from the table.
+     * The method accepts the following format only:
+     *      delete from table_name where columnName = columnValue;
+     * Sample input statement:
+     *      delete from students where id = 10;
+     *      delete from students where first_name = "John";
+     *
+     * This function reads the table file, and if the record is found, it gets deleted.
+     *
+     * Note: this function does not perform automatic commits.
+     *
+     * @param deleteStmt  the sql delete statement
+     * @param schemaName  the schema name
+     */
     public static void deleteData(String deleteStmt, String schemaName){
         try{
 
