@@ -4,8 +4,31 @@ import java.io.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * <h1>Create</h1>
+ * This class provides methods for table creation
+ */
 public class Create {
 
+    /**
+     * <h2>createTable</h2>
+     * This method gets called if the user enters a sql to CREATE a table.
+     * The method accepts the following format only:
+     *      create table table_name (columnName1 datatype, columnName2 datatype, .... , columnNameN datatype);
+     * Sample input statement:
+     *      create table students (id int, first_name string, last_name string);
+     *
+     * This function takes the CREATE statement and creates the table inside the Schema directory in the file metaData.txt
+     * The table is just a text file with the table name.
+     *      Example student.txt
+     *
+     *  The metaData.txt is the file that stores the table description details
+     *
+     * Note: this function performs automatic commits since it is a CREATE statement.
+     *
+     * @param  createStmt  the sql create statement
+     * @param schemaName   the schema name
+     */
     public static void createTable(String createStmt, String schemaName){
         try{
             createStmt = createStmt.toLowerCase();
@@ -52,6 +75,13 @@ public class Create {
         }
     }
 
+    /**
+     * <h2>createTableFile</h2>
+     * This method is a private method called inside createTable() to generate the table file
+     *
+     * @param  schemaName  the schema name
+     * @param  tableName   the table name
+     */
     private static void createTableFile(String schemaName, String tableName){
         try{
             Scanner scanner = new Scanner(System.in);
@@ -71,12 +101,5 @@ public class Create {
             System.out.println(e);
         }
     }
-
-//    public static void main(String[] args) {
-//        Scanner scanner = new Scanner(System.in);
-//        String stmt = scanner.nextLine();
-//        createTable(stmt, "StudentTest_a");
-////        createTableFile("StudentTest_a", "tableName");
-//    }
 
 }

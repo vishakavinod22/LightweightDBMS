@@ -6,7 +6,32 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
 
+/**
+ * <h1>Select</h1>
+ * This class provides methods for record selection
+ */
 public class Select {
+
+    /**
+     * <h2>selectData</h2>
+     * This method gets called if the user enters a sql to SELECT a record from the table.
+     * The method accepts the following formats only:
+     *      select * from table_name;
+     *      select * from table_name where columName = columnValue;
+     *      select columnName1, columnName2, ... ,columnNameN from table_name;
+     * Sample input statement:
+     *      select * from students;
+     *      select * from students where id = 1;
+     *      select * from students where first_name = "John";
+     *      select first_name, last_name from students;
+     *
+     *  Assumptions:
+     *      The user uses the WHERE clause only with "SELECT *" statements
+     *      During select, only correct column names are provided by the user
+     *
+     * @param selectStmt  the sql select statement
+     * @param schemaName  the schema name
+     */
     public static void selectData(String selectStmt, String schemaName) {
         try {
             selectStmt = selectStmt.toLowerCase();
@@ -88,6 +113,15 @@ public class Select {
 
     }
 
+    /**
+     * <h2>checkTableFile</h2>
+     * This method is a private method called inside selectData() to check if table exists. It returns a boolean value
+     * based on the result.
+     *
+     * @param  schemaName  the schema name
+     * @param  tableName   the table name
+     * @return             true if table exists otherwise false
+     */
     private static boolean checkTableFile(String schemaName, String tableName) {
         try {
             Scanner scanner = new Scanner(System.in);
@@ -105,6 +139,18 @@ public class Select {
         return false;
     }
 
+    /**
+     * <h2>selectAll</h2>
+     * This method is a private method called inside selectData() when a user enters a simple SELECT statement
+     *
+     * The method accepts the following format only:
+     *      select * from table_name;
+     * Sample input statement:
+     *      select * from students;
+     *
+     * @param tableName   the table name
+     * @param schemaName  the schema name
+     */
     private static void selectAll(String tableName, String schemaName){
         try{
             String fileName = "src/main/resources/Schemas/" + schemaName + "/"+tableName+".txt";
@@ -127,6 +173,23 @@ public class Select {
         }
     }
 
+    /**
+     * <h2>selectAllWithWhere</h2>
+     * This method is a private method called inside selectData() when a user enters a simple SELECT statement with
+     * a WHERE clause.
+     *
+     * The method accepts the following format only:
+     *      select * from table_name where columName = columnValue;
+     * Sample input statement:
+     *      select * from students where id = 1;
+     *      select * from students where first_name = "John";
+     *
+     * The where condition can search for any column name and is not limited to the primary key,
+     * as long as it exists in the database.
+     *
+     * @param tableName   the table name
+     * @param schemaName  the schema name
+     */
     private static void selectAllWithWhere(String tableName, String schemaName, String whereColumnName, String whereValue){
         try{
             String fileName = "src/main/resources/Schemas/" + schemaName + "/"+tableName+".txt";
@@ -164,6 +227,22 @@ public class Select {
         }
     }
 
+    /**
+     * <h2>selectColumns</h2>
+     * This method is a private method called inside selectData() when a user enters a SELECT statement
+     * with only a certain columnNames being selected.
+     *
+     * The method accepts the following format only:
+     *      select columnName1, columnName2, ... ,columnNameN from table_name;
+     * Sample input statement:
+     *      select first_name, last_name from students;
+     *
+     * The where condition can search for any column name and is not limited to the primary key,
+     * as long as it exists in the database.
+     *
+     * @param tableName   the table name
+     * @param schemaName  the schema name
+     */
     private static void selectColumns(String tableName, String schemaName, List<String> columnNames){
         try{
             String fileName = "src/main/resources/Schemas/" + schemaName + "/"+tableName+".txt";
@@ -205,6 +284,17 @@ public class Select {
         }
     }
 
+    /**
+     * <h2>getSelectOutputAsString</h2>
+     * This method is a public method called inside updateData() to get the output of the select statement as a string.
+     * This method is used for getting data for update.
+     *
+     * @param tableName        the table name
+     * @param schemaName       the schema name
+     * @param whereColumnName  the columnName used in the WHERE condition
+     * @param whereValue       the values assigned to the whereColumnName
+     * @return                 the output of the select statement
+     */
     public static List<String> getSelectOutputAsString(String tableName, String schemaName, String whereColumnName, String whereValue){
         try{
             String fileName = "src/main/resources/Schemas/" + schemaName + "/"+tableName+".txt";

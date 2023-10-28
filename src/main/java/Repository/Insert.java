@@ -8,7 +8,32 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * <h1>Insert</h1>
+ * This class provides methods for record insertion
+ */
 public class Insert {
+
+    /**
+     * <h2>insertData</h2>
+     * This method gets called if the user enters a sql to INSERT a record to the table.
+     * The method accepts the following format only:
+     *      insert into table_name (columnName1, columnName2, ... , columnNameN) values (value1, value2, ... value3)
+     * Sample input statement:
+     *      insert into students (id, first_name, last_name) values (1, John, doe)
+     *
+     *  Once the user inputs the insert statement, the method checks if the table exists. If it does, it then checks
+     *  if the primary key value is already taken. Once these checks are passed the record is inserted.
+     *
+     *  Assumptions:
+     *      The first key will always be the primary key
+     *      During insert, only correct column names are provided by the user
+     *
+     * Note: this function performs automatic commits.
+     *
+     * @param insertStmt  the sql delete statement
+     * @param schemaName  the schema name
+     */
     public static void insertData(String insertStmt, String schemaName){
         try{
             insertStmt = insertStmt.toLowerCase();
@@ -90,6 +115,15 @@ public class Insert {
 
     }
 
+    /**
+     * <h2>checkTableFile</h2>
+     * This method is a private method called inside insertData() to check if table exists. It returns a boolean value
+     * based on the result.
+     *
+     * @param  schemaName  the schema name
+     * @param  tableName   the table name
+     * @return             true if table exists otherwise false
+     */
     private static boolean checkTableFile(String schemaName, String tableName){
         try{
             Scanner scanner = new Scanner(System.in);
@@ -111,6 +145,6 @@ public class Insert {
 //    public static void main(String[] args) {
 //        Scanner scanner = new Scanner(System.in);
 //        String stmt = scanner.nextLine();
-//        insertData(stmt, "School_a");
+//        insertData(stmt, "testing_a");
 //    }
 }
