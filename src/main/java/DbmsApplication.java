@@ -1,6 +1,7 @@
 import Authentication.Login;
 import Authentication.Registration;
 import Repository.*;
+import Transaction.PerformTransactions;
 
 import java.util.Date;
 import java.util.Scanner;
@@ -70,6 +71,9 @@ public class DbmsApplication {
                 break;
             case "UPDATE":
                 Update.updateData(userQuery, schemaName);
+                break;
+            case "START":
+                PerformTransactions.startTransaction(schemaName);
                 break;
             default:
                 System.out.println("Invalid SQL query. Try again");

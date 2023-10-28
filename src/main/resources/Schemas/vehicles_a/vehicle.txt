@@ -1,3 +1,0 @@
-#;id|1;name|clark;color|yellow;make|tesla;years|12
-#;id|4;name|cycle;color|pink
-#;id|1;name|clark;color|yellow;make|tesla;years|12
