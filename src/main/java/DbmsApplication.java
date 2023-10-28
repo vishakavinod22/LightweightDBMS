@@ -1,7 +1,9 @@
 import Authentication.Login;
 import Authentication.Registration;
 import Repository.*;
+import Transaction.PerformTransactions;
 
+import java.util.Date;
 import java.util.Scanner;
 
 public class DbmsApplication {
@@ -30,36 +32,54 @@ public class DbmsApplication {
                 break;
         }
 
-        System.out.println("Queries");
-        System.out.println("--------");
-        boolean isContinue = false;
+        char isContinue = 'n';
         do {
-            //Get user query
-            String userQuery = Query.getUserQuery();
-            String action = Query.getQueryAction(userQuery);
-//            System.out.println(action);
-            switch (action) {
-                case "CREATE":
-                    Create.createTable(userQuery, schemaName);
-                    break;
-                case "INSERT":
-                    Insert.insertData(userQuery, schemaName);
-                    break;
-                case "SELECT":
-                    Select.selectData(userQuery, schemaName);
-                    break;
-            }
+            performOperations(schemaName);
 
-            System.out.println("Continue? [true/false]");
-            isContinue = scanner.nextBoolean();
-        } while (isContinue);
+            System.out.println("Continue? [y/n]");
+            isContinue = scanner.next().charAt(0);
+        } while (isContinue == 'y');
     }
 
-    public static String getSchema(String username){
+    private static String getSchema(String username) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter schema name: ");
         String schemaName = scanner.nextLine();
         SchemaManager.accessSchema(schemaName, username);
-        return schemaName+"_"+username;
+        return schemaName + "_" + username;
+    }
+
+    private static void performOperations(String schemaName) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Queries");
+        System.out.println("--------");
+        //Get user query
+        String userQuery = Query.getUserQuery();
+        String action = Query.getQueryAction(userQuery);
+        switch (action) {
+            case "CREATE":
+                Create.createTable(userQuery, schemaName);
+                break;
+            case "INSERT":
+                Insert.insertData(userQuery, schemaName);
+                break;
+            case "SELECT":
+                Select.selectData(userQuery, schemaName);
+                break;
+            case "DELETE":
+                Delete.deleteData(userQuery, schemaName);
+                break;
+            case "UPDATE":
+                Update.updateData(userQuery, schemaName);
+                break;
+            case "START":
+                PerformTransactions.startTransaction(schemaName);
+                break;
+            default:
+                System.out.println("Invalid SQL query. Try again");
+                break;
+        }
+
+
     }
 }

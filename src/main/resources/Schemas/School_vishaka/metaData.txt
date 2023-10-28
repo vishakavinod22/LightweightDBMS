@@ -1,3 +1,0 @@
-#students;id:int;f_name:string;l_name:string
-#teachers;id:int;name:string;subject_name:string
-#subjects;id:int;subject:string

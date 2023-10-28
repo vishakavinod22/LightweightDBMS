@@ -23,6 +23,8 @@ public class Login {
             Scanner scanner = new Scanner(System.in);
             System.out.print("Enter username: ");
             String username = scanner.nextLine();
+            //Converting username to lowercase to avoid case-insensitive checks
+            username = username.toLowerCase();
             System.out.print("Enter password: ");
             String password = scanner.nextLine();
 

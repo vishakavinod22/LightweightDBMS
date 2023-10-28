@@ -1,4 +1,4 @@
-package Repository;
+package Transaction;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.*;
 
-public class Delete {
+public class deleteTransaction {
     public static void deleteData(String deleteStmt, String schemaName){
         try{
 
@@ -18,7 +18,12 @@ public class Delete {
             String whereValue = stmtArray[stmtArray.length-1];
 
             String fileName = "src/main/resources/Schemas/" + schemaName + "/"+tableName+".txt";
-            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            String fileNameCopy = "src/main/resources/Schemas/" + schemaName + "/"+tableName+"Copy.txt";
+
+            //Create buffer for table
+            CommitManager.createBufferWithFileName(fileName, fileNameCopy);
+
+            BufferedReader reader = new BufferedReader(new FileReader(fileNameCopy));
             String line;
             List<String> updatedLine = new ArrayList<>();
             while ((line = reader.readLine()) != null) {
@@ -42,11 +47,12 @@ public class Delete {
             reader.close();
 
             if(!updatedLine.isEmpty()){
-                FileWriter writer = new FileWriter(fileName);
+                FileWriter writer = new FileWriter(fileNameCopy);
                 for (String l : updatedLine) {
                     writer.append(l).append("\n");
                 }
                 writer.close();
+                System.out.println("Record deleted.");
             } else {
                 System.out.println("Invalid column name.");
             }
@@ -63,7 +69,7 @@ public class Delete {
 
 //    public static void main(String[] args) {
 //        Scanner scanner = new Scanner(System.in);
-//        String stmt = "delete from students where f_name = vishaka";
+//        String stmt = "delete from subjects where id = 3";
 //        deleteData(stmt, "School_a");
 //    }
 }

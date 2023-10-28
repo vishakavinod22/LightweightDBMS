@@ -1,4 +1,0 @@
-#students;id:int;f_name:string;l_name:string
-#employee;id:int;name:string;address:string
-#subjects;id:int;subject:string
-

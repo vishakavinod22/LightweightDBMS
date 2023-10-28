@@ -1,9 +1,11 @@
-package Repository;
+package Transaction;
+
+import Repository.Select;
 
 import java.io.*;
 import java.util.*;
 
-public class Update {
+public class updateTransaction {
     public static void updateData(String updateStmt, String schemaName){
         try{
             updateStmt = updateStmt.toLowerCase();
@@ -29,7 +31,6 @@ public class Update {
                 return;
             }
 
-
             String[] rowDataArray = rowData.get(0).replaceAll("\\[","").replaceAll("]","").split("\\|");
             List<String> dataBeforeUpdate = new ArrayList<>();
 
@@ -39,9 +40,14 @@ public class Update {
 
             //Check if where column is a primary key
             String tableFileName = "src/main/resources/Schemas/"+schemaName+"/"+tableName+".txt";
-            BufferedReader reader = new BufferedReader(new FileReader(tableFileName));
+            String tableFileCopy = "src/main/resources/Schemas/"+schemaName+"/"+tableName+"Copy.txt";
+
+            //Create buffer for table
+            CommitManager.createBufferWithFileName(tableFileName, tableFileCopy);
+
+            BufferedReader reader = new BufferedReader(new FileReader(tableFileCopy));
             String line;
-              String primaryKey = "";
+            String primaryKey = "";
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("#")) {
                     String[] splitLine = line.replaceAll(",","").replaceAll("#","").split("[;|]");
@@ -82,9 +88,9 @@ public class Update {
 
             String tempFileName = "src/main/resources/Schemas/temp.txt";
             File tempFile = new File(tempFileName);
-            File tableFile = new File(tableFileName);
+            File tableFile = new File(tableFileCopy);
 
-            BufferedReader r = new BufferedReader(new FileReader(tableFileName));
+            BufferedReader r = new BufferedReader(new FileReader(tableFileCopy));
             BufferedWriter w = new BufferedWriter(new FileWriter(tempFile));
             String line2;
             while ((line2 = r.readLine()) != null) {
@@ -101,7 +107,7 @@ public class Update {
             if (!isUpdated) {
                 System.out.println("Record not updated.");
             } else {
-                System.out.println("Record updated successfully.");
+                System.out.println("Record updated.");
             }
 
 
@@ -115,8 +121,8 @@ public class Update {
 
 //    public static void main(String[] args) {
 //        Scanner s = new Scanner(System.in);
-//        String stmt = s.nextLine();
-//        updateData(stmt, "Vehicles_vishaka");
+//        String stmt = "update subjects set id = 200 where id = 2";
+//        updateData(stmt, "school_a");
 //        //#;id|3;name|truck;color|grey;make|aaa;years|13
 //    }
 }

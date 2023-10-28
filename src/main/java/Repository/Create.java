@@ -1,6 +1,7 @@
 package Repository;
 
 import java.io.*;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Create {
@@ -63,7 +64,10 @@ public class Create {
                 tableFile.createNewFile();
             }
 
-        } catch (Exception e){
+        } catch (InputMismatchException e){
+            System.out.println(e + " : Invalid input, try again");
+        }
+        catch (Exception e){
             System.out.println(e);
         }
     }

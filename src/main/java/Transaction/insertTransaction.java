@@ -1,4 +1,6 @@
-package Repository;
+package Transaction;
+
+import Repository.Constants;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,11 +10,12 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Insert {
+public class insertTransaction {
     public static void insertData(String insertStmt, String schemaName){
+        insertStmt = insertStmt.toLowerCase();
+        String fileName = "src/main/resources/Schemas/"+schemaName+"/metaData.txt";
+
         try{
-            insertStmt = insertStmt.toLowerCase();
-            String fileName = "src/main/resources/Schemas/"+schemaName+"/metaData.txt";
 
             //Get table name
             String[] stmtArray = insertStmt.split("\\s|\\(+");
@@ -60,6 +63,7 @@ public class Insert {
 
             //Check if primary key already exists
             String tableFileName = "src/main/resources/Schemas/"+schemaName+"/"+tableName+".txt";
+            String tableFileCopy = "src/main/resources/Schemas/"+schemaName+"/"+tableName+"Copy.txt";
             BufferedReader reader2 = new BufferedReader(new FileReader(tableFileName));
             String line2;
             while ((line2 = reader2.readLine()) != null) {
@@ -74,12 +78,15 @@ public class Insert {
             }
             reader2.close();
 
+            //Create buffer for table
+            CommitManager.createBufferWithFileName(tableFileName, tableFileCopy);
+
             //Insert data into file
-            FileWriter writer = new FileWriter(tableFileName, true);
+            FileWriter writer = new FileWriter(tableFileCopy, true);
             String tableDataValue = Constants.ROW_START+tableData+"\n";
             writer.append(tableDataValue);
             writer.close();
-            System.out.println("Record Inserted");
+            System.out.println("Record Inserted.");
 
         } catch (InputMismatchException e){
             System.out.println(e + " : Invalid input, try again");
@@ -110,7 +117,7 @@ public class Insert {
 
 //    public static void main(String[] args) {
 //        Scanner scanner = new Scanner(System.in);
-//        String stmt = scanner.nextLine();
+//        String stmt = "Insert into subjects (id, subject) values (1, maths);";
 //        insertData(stmt, "School_a");
 //    }
 }
